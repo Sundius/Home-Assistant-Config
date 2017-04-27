@@ -1,0 +1,6 @@
+zwave.telldus_tzwp100_plugin_switch_2:
+  ignored: false
+  polling_intensity: 0
+zwave.aeotec_zw090_zstick_gen5_1:
+  ignored: false
+  polling_intensity: 0

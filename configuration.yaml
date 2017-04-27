@@ -1,0 +1,116 @@
+homeassistant:
+  # Name of the location where Home Assistant is running
+  name: Kvarngatan 3 (Hemma)
+  # Location required to calculate the time the sun rises and sets
+  latitude: !secret latitude_home
+  longitude: !secret longitude_home
+  # Impacts weather/sunrise data (altitude above sea level in meters)
+  elevation: 39.6
+  # metric for Metric, imperial for Imperial
+  unit_system: metric
+  # Pick yours from here: http://en.wikipedia.org/wiki/List_of_tz_database_time_zones
+  time_zone: Europe/Stockholm
+  # Customization test
+  # Add an entry for each entity that you want to overwrite.
+  customize:  
+    zwave.aeotec_zw090_zstick_gen5_1:
+      friendly_name: Z-Stick Aeon  
+# Show links to resources in log and frontend
+#introduction:
+
+# Enables the frontend
+frontend:
+
+# Enables configuration UI
+config:
+
+http:
+  # Uncomment this to add a password (recommended!)
+  # api_password: PASSWORD
+  # Uncomment this if you are using SSL or running in Docker etc
+  # base_url: example.duckdns.org:8123
+
+# Checks for available updates
+updater:
+
+# Discover some devices automatically
+discovery:
+
+# Allows you to issue voice commands from the frontend in enabled browsers
+conversation:
+
+# Enables support for tracking state changes over time.
+history:
+
+# View all events in a logbook
+logbook:
+
+# Track the sun
+sun:
+
+# Weather Prediction
+sensor:
+  platform: yr
+
+# Text to speech
+tts:
+  platform: google
+
+group: !include groups.yaml
+
+mqtt:
+  broker: 127.0.0.1
+  port: 1883
+  client_id: home-assistant-1
+  username: pi
+  password: !secret mqtt_password
+
+# Test of Zwave
+zwave:
+  # The port where your device is connected to your Home Assistant host.
+  usb_path: /dev/ttyACM0
+  # The path to the Python OpenZWave configuration files. Defaults to the folder config in your Python OpenZWave install directory.
+  config_path: /srv/homeassistant/homeassistant_venv/lib/python3.4/site-packages/libopenzwave-0.3.3-py3.4-linux-armv7l.egg/config
+  # Allows disabling auto Z-Wave heal at midnight. Defaults to True.
+  #autoheal:
+  # The time period in milliseconds between polls of a nodes value. Be careful about using polling values below 30000 (30 seconds) as polling can flood the zwave network and cause problems.
+  #polling_interval:
+  # This attribute contains node-specific override values. (For releases prior to 0.39 this variable is called customize) See Customizing devices and services for format:
+  #device_config:
+    # Enables polling of a value and sets the frequency of polling (0=none, 1=every time through the list, 2=every other time, etc). If not specified then your device will not be polled.
+    #polling_intensity:
+    # Ignore this entity completely. It won’t be shown in the Web Interface and no events are generated for it.
+    #ignored:
+    # Enable refreshing of the node value. Only the light component uses this. Defaults to False.
+    #refresh_value:
+    # Specify the delay for refreshing of node value. Only the light component uses this. Defaults to 2 seconds.
+    #delay:
+    # Inverts function of the open and close buttons for the cover domain. Defaults to False
+    #invert_openclose_buttons:
+  # Print verbose z-wave info to log. Defaults to False.
+  #debug: 
+  
+# Test of Logitech Harmony Hub
+remote:
+  platform: harmony
+  name: Harmony Hub
+  host: !secret harmony_host
+  
+# Test of Spotify
+media_player:
+  platform: spotify
+  client_id: !secret spotify_client_id
+  client_secret: !secret spotify_client_secret
+
+# Test of device Tracker
+device_tracker:
+  platform: asuswrt
+  host: !secret asuswrt_host
+  username: !secret asuswrt_user
+  password: !secret asuswrt_pwd
+  protocol: telnet
+  interval_seconds: 10
+  consider_home: 180
+  track_new_devices: no 
+  
+    
